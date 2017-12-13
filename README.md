@@ -6,8 +6,8 @@ This is my general configuration for Emacs, Zsh, Vim, & Tmux. There's still a fe
 
 ## Screenshots
 
-[](https://i.imgur.com/EWkTSmm.png)
-[](https://i.imgur.com/UwLlTEg.png)
+![](https://i.imgur.com/EWkTSmm.png)
+![](https://i.imgur.com/UwLlTEg.png)
 
 ## Details
 
