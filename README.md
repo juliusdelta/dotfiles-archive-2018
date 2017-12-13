@@ -27,6 +27,14 @@ I don't use Vim to often. My setup for it is vairly minimal. Almost everything i
 
 I don't use Tmux too much anynmore. It's just on those days where I spend a lot of time running tests do I use it. Tmux leader is mapped to `C-b` which is just fine, as Ctrl has become apart of my pink's muscle memory.
 
+## Todos
+
+- [ ] Increase documentation
+- [ ] Split up Emacs & Zsh configuration
+- [ ] Refactor
+- [ ] Remove fzf config
+
 #### Disclaimer
 
 Use at your own risk! I'm not responsible if you download these and something breaks :D
+
