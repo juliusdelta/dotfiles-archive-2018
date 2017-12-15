@@ -217,6 +217,9 @@
 (use-package evil-smartparens
   :ensure t)
 (add-hook 'smartparens-enabled-hook #'evil-smartparens-mode)
+(add-hook 'ruby-mode-hook #'evil-smartparens-mode)
+(add-hook 'rust-mode-hook #'evil-smartparens-mode)
+(add-hook 'js-mode-hook #'evil-smartparens-mode)
 
 (use-package web-mode
   :ensure t)
