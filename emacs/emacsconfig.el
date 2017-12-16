@@ -135,8 +135,9 @@
   "'" 'multi-term-dedicated-toggle
   "ct" 'xref-find-definitions
   "nt" 'xref-find-definitions-other-window
-  "fed" (lambda () (interactive) (find-file "~/.emacs.d/init.el"))
-  "ot" (lambda () (interactive) (find-file "~/orgfiles/todo.org")))
+  "fed" (lambda () (interactive) (find-file "~/dotfiles/emacs/emacsconfig.el"))
+  "ot" (lambda () (interactive) (find-file "~/orgfiles/todo.org"))
+  "on" (lambda () (interactive) (find-file "~/orgfiles/notes.org")))
 
 (setq tags-table-list '("~/code/modernmsg/modernmsg/TAGS"))
 
@@ -173,10 +174,14 @@
 
 (setq org-capture-templates
       '(("t" "To Do Item" entry (file+headline "~/orgfiles/todo.org" "ToDo")
-	 "* TODO %?\n%u" :prepend t)
-	("n" "Note" entry (file+headline "~/orgfiles/notes.org" "Note space")
-	 "* %?\n%u" :prepend t)
-	))
+         "* TODO %?\n%u" :prepend t)
+        ("n" "Note" entry (file+headline "~/orgfiles/notes.org" "Note space")
+         "* %?\n%u" :prepend t)
+        ("b" "Blog Idea" entry (file+headline "~/orgfiles/blogs.org" "Idea List")
+         "* %?\n%u" :prepend t)
+        ("s" "Code Snippet" entry (file  "~/orgfiles/snippets.org")
+         "* %?\t%^g\n#+BEGIN_SRC %^{language}\n\n#+END_SRC" :prepend t)
+        ))
 
 (setq org-bullets-bullet-list
       '("◉" "◎" "⚫ " "○" "►" "◇"))
