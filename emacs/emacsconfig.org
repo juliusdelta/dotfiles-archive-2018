@@ -94,7 +94,8 @@
   "wl" 'evil-window-right
   "wd" 'evil-window-delete
   "w/" 'evil-window-split
-  "w|" 'evil-window-vsplit)
+  "w|" 'evil-window-vsplit
+  "d"  'dired-jump)
 #+END_SRC
 * Navigation and Projects
 #+BEGIN_SRC emacs-lisp
