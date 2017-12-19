@@ -71,7 +71,7 @@
       (projects . 5)
       (agenda . 5)))
 (setq dashboard-banner-logo-title "Hey Babe")
-(setq dashboard-startup-banner "~/orgfiles/sun.png")
+(setq dashboard-startup-banner "~/dotfiles/sun.png")
 #+END_SRC
 * Evil Setup
 #+BEGIN_SRC emacs-lisp
