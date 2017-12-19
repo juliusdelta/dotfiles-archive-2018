@@ -68,6 +68,7 @@
 (setq dashboard-items '((recents  . 5)
 			(projects . 5)
 			(agenda . 5)))
+;; (evil-define-key 'normal dashboard-mode-map (kbd "RET") 'neotree-enter)
 
   ;; Set the title
 (setq dashboard-banner-logo-title "Hey Babe")
@@ -102,7 +103,12 @@
 (use-package neotree
   :ensure t)
 (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
-(define-key evil-normal-state-map (kbd "RET") 'neotree-enter)
+(evil-define-key 'normal neotree-mode-map (kbd "RET") 'neotree-enter)
+(evil-define-key 'normal neotree-mode-map (kbd "c") 'neotree-create-node)
+(evil-define-key 'normal neotree-mode-map (kbd "r") 'neotree-rename-node)
+(evil-define-key 'normal neotree-mode-map (kbd "q") 'neotree-hide)
+(evil-define-key 'normal neotree-mode-map (kbd "gr") 'neotree-refresh)
+(evil-define-key 'normal neotree-mode-map (kbd "p") 'neotree-quick-look)
 
 (use-package projectile
   :ensure t)
@@ -136,8 +142,8 @@
   "ct" 'xref-find-definitions
   "nt" 'xref-find-definitions-other-window
   "fed" (lambda () (interactive) (find-file "~/dotfiles/emacs/emacsconfig.el"))
-  "ot" (lambda () (interactive) (find-file "~/orgfiles/todo.org"))
-  "on" (lambda () (interactive) (find-file "~/orgfiles/notes.org")))
+  "ot" (lambda () (interactive) (find-file "~/Dropbox/orgfiles/todo.org"))
+  "on" (lambda () (interactive) (find-file "~/Dropbox/orgfiles/notes.org")))
 
 (setq tags-table-list '("~/code/modernmsg/modernmsg/TAGS"))
 
@@ -161,7 +167,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(org-default-notes-file (concat org-directory "/notes.org"))
- '(org-directory "~/orgfiles")
+ '(org-directory "~/Dropbox/orgfiles")
  '(org-export-html-postamble nil)
  '(org-hide-leading-stars t)
  '(org-startup-folded (quote overview))
@@ -170,16 +176,16 @@
    (quote
     (web-mode cargo evil-smartparens zerodark-theme which-key toml-mode toml spaceline-all-the-icons smartparens rust-mode ruby-additional rjsx-mode powerline-evil org-evil org-bullets org-beautify-theme nord-theme neotree multi-term markdown-mode helm-projectile evil-magit evil-leader evil-commentary company coffee-mode))))
 
-(setq org-agenda-files (list "~/orgfiles/todo.org"))
+(setq org-agenda-files (list "~/Dropbox/orgfiles/todo.org"))
 
 (setq org-capture-templates
-      '(("t" "To Do Item" entry (file+headline "~/orgfiles/todo.org" "ToDo")
+      '(("t" "To Do Item" entry (file+headline "~/Dropbox/orgfiles/todo.org" "ToDo")
          "* TODO %?\n%u" :prepend t)
-        ("n" "Note" entry (file+headline "~/orgfiles/notes.org" "Note space")
+        ("n" "Note" entry (file+headline "~/Dropbox/orgfiles/notes.org" "Note space")
          "* %?\n%u" :prepend t)
-        ("b" "Blog Idea" entry (file+headline "~/orgfiles/blogs.org" "Idea List")
+        ("b" "Blog Idea" entry (file+headline "~/Dropbox/orgfiles/blogs.org" "Idea List")
          "* %?\n%u" :prepend t)
-        ("s" "Code Snippet" entry (file  "~/orgfiles/snippets.org")
+        ("s" "Code Snippet" entry (file  "~/Dropbox/orgfiles/snippets.org")
          "* %?\t%^g\n#+BEGIN_SRC %^{language}\n\n#+END_SRC" :prepend t)
         ))
 
@@ -217,7 +223,8 @@
 
 (use-package smartparens
   :ensure t)
-(smartparens-global-mode t)
+(smartparens-global-mode)
+(show-smartparens-global-mode t)
 
 (use-package evil-smartparens
   :ensure t)
@@ -245,7 +252,6 @@
 (setq sp-highlight-wrap-overlay nil)
 (setq sp-highlight-wrap-tag-overlay nil)
 
-
 (use-package toml-mode
   :ensure t)
 
@@ -254,8 +260,42 @@
 
 (use-package rjsx-mode
   :ensure t)
+(use-package jsx-mode
+  :ensure t)
 
-  ;; set default tabbing to 2 spaces
+(defadvice js-jsx-indent-line (after js-jsx-indent-line-after-hack activate)
+  "Workaround sgml-mode and follow airbnb component style."
+  (save-excursion
+    (beginning-of-line)
+    (if (looking-at-p "^ +\/?> *$")
+        (delete-char sgml-basic-offset))))
+
+
+;; Eshell
+(use-package exec-path-from-shell
+  :ensure t)
+
+(when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize))
+
+  (defmacro with-face (str &rest properties)
+    `(propertize ,str 'face (list ,@properties)))
+
+;;Eshell look
+;; (defun shk-eshell-prompt ()
+;;   (let ((header-bg "#81A1C1"))
+;;     (concat
+;;      (with-face (concat (eshell/pwd) " ") :background header-bg)
+;;      (with-face (format-time-string "(%Y-%m-%d %H:%M) " (current-time)) :background header-bg :foreground "#888")
+;;      (with-face user-login-name :background header-bg :foreground "#000")
+;;      (if (= (user-uid) 0)
+;;          (with-face " #" :foreground "red")
+;;        " $")
+;;      " ")))
+;; (setq eshell-prompt-function 'shk-eshell-prompt)
+;; (setq eshell-highlight-prompt nil)
+
+;; set default tabbing to 2 spaces
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 2)
 

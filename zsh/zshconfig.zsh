@@ -17,11 +17,7 @@ export RUST_SRC_PATH=$HOME/rust/src
 #
 POWERLEVEL9K_MODE='fontawesome'
 
-if [ -n "$INSIDE_EMACS" ]; then
-    export ZSH_THEME="rawsyntax"
-else
-    export ZSH_THEME="powerlevel9k/powerlevel9k"
-fi
+export ZSH_THEME="powerlevel9k/powerlevel9k"
 
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(user dir vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator vi_mode history time)
