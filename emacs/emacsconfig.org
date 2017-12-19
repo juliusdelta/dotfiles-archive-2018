@@ -1,4 +1,8 @@
-;; General Setup/Tweaks
+#+TITLE: Emacs Configuration
+#+STARTUP: Overview
+
+* General Setup/Tweaks
+#+BEGIN_SRC emacs-lisp
 (setq inhibit-startup-message t)
 (global-linum-mode t)
 (toggle-scroll-bar -1)
@@ -9,9 +13,6 @@
 (setq scroll-conservatively 100000)
 (setq scroll-preserve-screen-position 'always)
 (setq default-frame-alist '((width . 130) (height . 45)))
-;; End General Setup/Tweaks
-
-;; Config utf8 for everything
 (setq locale-coding-system 'utf-8)
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
@@ -19,31 +20,32 @@
 (prefer-coding-system 'utf-8)
 (when (display-graphic-p)
   (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING)))
-;; End General Setup/Tweaks
+#+END_SRC
 
-;;Setup up Packages
+* Setup Package Use
+#+BEGIN_SRC emacs-lisp
 (require 'package)
 (setq package-enable-at-startup nil)
 (add-to-list 'package-archives
-	     '("melpa" . "https://melpa.org/packages/"))
+       '("melpa" . "https://melpa.org/packages/"))
 
 (package-initialize)
 
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
-;;End Setup up Packages
-
-;; Random Packages
+#+END_SRC
+* Random Packages
+#+BEGIN_SRC emacs-lisp
 (use-package try
   :ensure t)
 
 (use-package which-key
   :ensure t
   :config (which-key-mode))
-;; End Random Packages
-
-;; Appearance
+#+END_SRC
+* Appearance
+#+BEGIN_SRC emacs-lisp
 (setq custom-safe-themes t)
 
 (use-package all-the-icons)
@@ -66,17 +68,13 @@
   (dashboard-setup-startup-hook))
 
 (setq dashboard-items '((recents  . 5)
-			(projects . 5)
-			(agenda . 5)))
-;; (evil-define-key 'normal dashboard-mode-map (kbd "RET") 'neotree-enter)
-
-  ;; Set the title
+      (projects . 5)
+      (agenda . 5)))
 (setq dashboard-banner-logo-title "Hey Babe")
-  ;; Set the banner
 (setq dashboard-startup-banner "~/orgfiles/sun.png")
-;; End Appearance
-
-;; Evil Setup
+#+END_SRC
+* Evil Setup
+#+BEGIN_SRC emacs-lisp
 (use-package evil
   :ensure t)
 
@@ -97,9 +95,9 @@
   "wd" 'evil-window-delete
   "w/" 'evil-window-split
   "w|" 'evil-window-vsplit)
-;; End Evil Setup
-
-;; Navigation/Projects
+#+END_SRC
+* Navigation and Projects
+#+BEGIN_SRC emacs-lisp
 (use-package neotree
   :ensure t)
 (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
@@ -152,13 +150,19 @@
 
 (use-package evil-magit
   :ensure t)
-;; End Navigation/Projects
-
-;; Org Mode
+#+END_SRC
+* Org Mode
+#+BEGIN_SRC emacs-lisp
 (use-package org-evil
   :ensure t)
 
 (use-package org-bullets
+  :ensure t)
+  
+(use-package htmlize
+  :ensure t)
+  
+(use-package ox-twbs
   :ensure t)
 
 (custom-set-variables
@@ -193,15 +197,15 @@
       '("◉" "◎" "⚫ " "○" "►" "◇"))
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 (setq org-todo-keywords '((sequence "☛ TODO(t)" "|" "✔ DONE(d)")
-			  (sequence "⚑ WAITING(w)" "|")
-			  (sequence "|" "✘ CANCELED(c)")))
+        (sequence "⚑ WAITING(w)" "|")
+        (sequence "|" "✘ CANCELED(c)")))
 
 (evil-leader/set-key
   "oa" 'org-agenda
   "oc" 'org-capture)
-;; End Org Mode
-
-;; Lanugage
+#+END_SRC
+* Dev Language Settings
+#+BEGIN_SRC emacs-lisp
 (evil-commentary-mode)
 
 (use-package company
@@ -260,6 +264,7 @@
 
 (use-package rjsx-mode
   :ensure t)
+
 (use-package jsx-mode
   :ensure t)
 
@@ -269,9 +274,9 @@
     (beginning-of-line)
     (if (looking-at-p "^ +\/?> *$")
         (delete-char sgml-basic-offset))))
-
-
-;; Eshell
+#+END_SRC
+* Eshell
+#+BEGIN_SRC emacs-lisp
 (use-package exec-path-from-shell
   :ensure t)
 
@@ -298,9 +303,9 @@
 ;; set default tabbing to 2 spaces
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 2)
-
-;; End Language
-
+#+END_SRC
+* Emacs Custom Set Faces
+#+BEGIN_SRC emacs-lisp
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -309,3 +314,4 @@
  '(spaceline-all-the-icons-sunrise-face ((t (:inherit powerline-active2 :foreground "#88c0d0"))))
  '(spaceline-all-the-icons-sunset-face ((t (:inherit powerline-active2 :foreground "dark cyan"))))
  '(spaceline-highlight-face ((t (:foreground "#ECEFF4" :background "#5E81AC")))))
+#+END_SRC
