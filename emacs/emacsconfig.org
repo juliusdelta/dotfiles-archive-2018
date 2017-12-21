@@ -140,7 +140,7 @@
   "'" 'multi-term-dedicated-toggle
   "ct" 'xref-find-definitions
   "nt" 'xref-find-definitions-other-window
-  "fed" (lambda () (interactive) (find-file "~/dotfiles/emacs/emacsconfig.el"))
+  "fed" (lambda () (interactive) (find-file "~/dotfiles/emacs/emacsconfig.org"))
   "ot" (lambda () (interactive) (find-file "~/Dropbox/orgfiles/todo.org"))
   "on" (lambda () (interactive) (find-file "~/Dropbox/orgfiles/notes.org")))
 
