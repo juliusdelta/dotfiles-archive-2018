@@ -135,7 +135,7 @@
   "ff" 'helm-find-files
   "pf" 'helm-projectile-find-file
   "gs" 'magit-status
-  "sgp" 'projectile-grep
+  "sgp" 'helm-grep-do-git-grep
   "sp" 'projectile-switch-project
   "'" 'multi-term-dedicated-toggle
   "ct" 'xref-find-definitions
