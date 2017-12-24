@@ -99,58 +99,64 @@
 #+END_SRC
 * Navigation and Projects
 #+BEGIN_SRC emacs-lisp
-(use-package neotree
-  :ensure t)
-(setq neo-theme (if (display-graphic-p) 'icons 'arrow))
-(evil-define-key 'normal neotree-mode-map (kbd "RET") 'neotree-enter)
-(evil-define-key 'normal neotree-mode-map (kbd "c") 'neotree-create-node)
-(evil-define-key 'normal neotree-mode-map (kbd "r") 'neotree-rename-node)
-(evil-define-key 'normal neotree-mode-map (kbd "q") 'neotree-hide)
-(evil-define-key 'normal neotree-mode-map (kbd "gr") 'neotree-refresh)
-(evil-define-key 'normal neotree-mode-map (kbd "p") 'neotree-quick-look)
+  (use-package neotree
+    :ensure t)
+  (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
+  (evil-define-key 'normal neotree-mode-map (kbd "RET") 'neotree-enter)
+  (evil-define-key 'normal neotree-mode-map (kbd "c") 'neotree-create-node)
+  (evil-define-key 'normal neotree-mode-map (kbd "r") 'neotree-rename-node)
+  (evil-define-key 'normal neotree-mode-map (kbd "q") 'neotree-hide)
+  (evil-define-key 'normal neotree-mode-map (kbd "gr") 'neotree-refresh)
+  (evil-define-key 'normal neotree-mode-map (kbd "p") 'neotree-quick-look)
 
-(use-package projectile
-  :ensure t)
+  (use-package projectile
+    :ensure t)
 
-(use-package helm
-  :ensure t)
+  (use-package helm
+    :ensure t)
 
-(use-package helm-projectile
-  :ensure t)
+  (use-package helm-projectile
+    :ensure t)
 
-(setq helm-display-header-line nil)
-(set-face-attribute 'helm-source-header nil :height 0.1)
-(helm-autoresize-mode 1)
-(setq helm-autoresize-max-height 25)
-(setq helm-autoresize-min-height 25)
-(setq helm-split-window-in-side-p t)
+  (setq helm-display-header-line nil)
+  (set-face-attribute 'helm-source-header nil :height 0.1)
+  (helm-autoresize-mode 1)
+  (setq helm-autoresize-max-height 25)
+  (setq helm-autoresize-min-height 25)
+  (setq helm-split-window-in-side-p t)
 
-(evil-leader/set-key
-  "ft" 'neotree-toggle
-  "pt" 'neotree-projectile-action
-  "bb"  'helm-buffers-list
-  "bd" 'kill-buffer-and-window
-  "bn" 'next-buffer
-  "bN" 'previous-buffer
-  "ff" 'helm-find-files
-  "pf" 'helm-projectile-find-file
-  "gs" 'magit-status
-  "sgp" 'helm-grep-do-git-grep
-  "sp" 'projectile-switch-project
-  "'" 'multi-term-dedicated-toggle
-  "ct" 'xref-find-definitions
-  "nt" 'xref-find-definitions-other-window
-  "fed" (lambda () (interactive) (find-file "~/dotfiles/emacs/emacsconfig.org"))
-  "ot" (lambda () (interactive) (find-file "~/Dropbox/orgfiles/todo.org"))
-  "on" (lambda () (interactive) (find-file "~/Dropbox/orgfiles/notes.org")))
+  (use-package expand-region
+    :ensure t)
+  (setq expand-region-contract-fast-key "z")
 
-(setq tags-table-list '("~/code/modernmsg/modernmsg/TAGS"))
+  (evil-leader/set-key
+    "ft" 'neotree-toggle
+    "pt" 'neotree-projectile-action
+    "bb"  'helm-buffers-list
+    "bd" 'kill-buffer-and-window
+    "bn" 'next-buffer
+    "bN" 'previous-buffer
+    "ff" 'helm-find-files
+    "pf" 'helm-projectile-find-file
+    "gs" 'magit-status
+    "sgp" 'helm-grep-do-git-grep
+    "sp" 'projectile-switch-project
+    "'" 'multi-term-dedicated-toggle
+    "ct" 'xref-find-definitions
+    "nt" 'xref-find-definitions-other-window
+    "v" 'er/expand-region
+    "fed" (lambda () (interactive) (find-file "~/dotfiles/emacs/emacsconfig.org"))
+    "ot" (lambda () (interactive) (find-file "~/Dropbox/orgfiles/todo.org"))
+    "on" (lambda () (interactive) (find-file "~/Dropbox/orgfiles/notes.org")))
 
-(use-package magit
-  :ensure t)
+  (setq tags-table-list '("~/code/modernmsg/modernmsg/TAGS"))
 
-(use-package evil-magit
-  :ensure t)
+  (use-package magit
+    :ensure t)
+
+  (use-package evil-magit
+    :ensure t)
+  
 #+END_SRC
 * Org Mode
 #+BEGIN_SRC emacs-lisp
