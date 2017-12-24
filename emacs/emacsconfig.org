@@ -156,7 +156,6 @@
 
   (use-package evil-magit
     :ensure t)
-  
 #+END_SRC
 * Org Mode
 #+BEGIN_SRC emacs-lisp
@@ -341,7 +340,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(spaceline-all-the-icons-sunrise-face ((t (:inherit powerline-active2 :foreground #88c0d0"))))
+ '(spaceline-all-the-icons-sunrise-face ((t (:inherit powerline-active2 :foreground "#88c0d0"))))
  '(spaceline-all-the-icons-sunset-face ((t (:inherit powerline-active2 :foreground "dark cyan"))))
  '(spaceline-highlight-face ((t (:foreground "#ECEFF4" :background "#5E81AC")))))
 #+END_SRC
