@@ -239,9 +239,12 @@
   :ensure t)
 
 (use-package smartparens
-  :ensure t)
-(smartparens-global-mode)
-(show-smartparens-global-mode t)
+  :ensure t
+  :config
+  (progn 
+    (show-smartparens-global-mode t)))
+(add-hook 'prog-mode-hook 'turn-on-smartparens-strict-mode)
+(add-hook 'markdown-mode-hook 'turn-on-smartparens-strict-mode)
 
 (use-package evil-smartparens
   :ensure t)
@@ -317,6 +320,20 @@
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 2)
 #+END_SRC
+* Elfeed
+#+BEGIN_SRC emacs-lisp
+(use-package elfeed
+  :ensure t)
+  
+(setq elfeed-feeds
+      '("https://rubyweekly.com/rss/"
+        "http://planet.emacsen.org/atom.xml"
+        "http://sachachua.com/blog/feed/"
+        "https://jamesclear.com/feed" 
+        "https://this-week-in-rust.org/rss.xml"
+        "http://endlessparentheses.com/atom.xml"))
+
+#+END_SRC
 * Emacs Custom Set Faces
 #+BEGIN_SRC emacs-lisp
 (custom-set-faces
@@ -324,7 +341,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(spaceline-all-the-icons-sunrise-face ((t (:inherit powerline-active2 :foreground "#88c0d0"))))
+ '(spaceline-all-the-icons-sunrise-face ((t (:inherit powerline-active2 :foreground #88c0d0"))))
  '(spaceline-all-the-icons-sunset-face ((t (:inherit powerline-active2 :foreground "dark cyan"))))
  '(spaceline-highlight-face ((t (:foreground "#ECEFF4" :background "#5E81AC")))))
 #+END_SRC
