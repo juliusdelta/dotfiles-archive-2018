@@ -4,7 +4,7 @@ neofetch
 #export PATH=$HOME/bin:/usr/local/bin:$PATH
 fpath+=~/.zfunc
 export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
+eval "$(rbenv init - zsh)"
 #if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 # Path to your oh-my-zsh installation.
