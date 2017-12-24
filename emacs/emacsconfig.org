@@ -21,8 +21,13 @@
 (when (display-graphic-p)
   (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING)))
 #+END_SRC
+** Disable Autosave - I find these files quite annoying and I habitually save the file
+#+BEGIN_SRC emacs-lisp
+(setq auto-save-default nil)
+(setq make-backup-files nil)
+#+END_SRC
 
-* Setup Package Use
+* Setup Use Package
 #+BEGIN_SRC emacs-lisp
 (require 'package)
 (setq package-enable-at-startup nil)
@@ -47,7 +52,9 @@
 * Appearance
 #+BEGIN_SRC emacs-lisp
 (setq custom-safe-themes t)
-
+#+END_SRC
+** [[https://github.com/arcticicestudio/nord][Nord]], [[https://github.com/TheBB/spaceline][Spaceline]], [[https://github.com/rakanalh/emacs-dashboard][Emacs-Dashboard]]
+#+BEGIN_SRC emacs-lisp
 (use-package all-the-icons)
 (load-theme 'nord t)
 
@@ -73,7 +80,7 @@
 (setq dashboard-banner-logo-title "Hey Babe")
 (setq dashboard-startup-banner "~/dotfiles/sun.png")
 #+END_SRC
-* Evil Setup
+* Evil
 #+BEGIN_SRC emacs-lisp
 (use-package evil
   :ensure t)
@@ -86,7 +93,9 @@
 
 (evil-leader/set-leader "SPC")
 (setq evil-leader/in-all-states t)
-
+#+END_SRC
+** Evil Window keybindings
+#+BEGIN_SRC emacs-lisp
 (evil-leader/set-key
   "wh" 'evil-window-left
   "wj" 'evil-window-down
@@ -128,7 +137,9 @@
   (use-package expand-region
     :ensure t)
   (setq expand-region-contract-fast-key "z")
-
+ #+END_SRC
+** Project Navigation Keybindings
+ #+BEGIN_SRC emacs-lisp
   (evil-leader/set-key
     "ft" 'neotree-toggle
     "pt" 'neotree-projectile-action
@@ -150,7 +161,9 @@
     "on" (lambda () (interactive) (find-file "~/Dropbox/orgfiles/notes.org")))
 
   (setq tags-table-list '("~/code/modernmsg/modernmsg/TAGS"))
-
+#+END_SRC
+** Magit
+#+BEGIN_SRC emacs-lisp
   (use-package magit
     :ensure t)
 
