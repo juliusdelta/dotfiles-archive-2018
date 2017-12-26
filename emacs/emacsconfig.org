@@ -20,6 +20,8 @@
 (prefer-coding-system 'utf-8)
 (when (display-graphic-p)
   (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING)))
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width 2)
 #+END_SRC
 ** Disable Autosave - I find these files quite annoying and I habitually save the file
 #+BEGIN_SRC emacs-lisp
@@ -314,23 +316,67 @@
   (defmacro with-face (str &rest properties)
     `(propertize ,str 'face (list ,@properties)))
 
-;;Eshell look
-;; (defun shk-eshell-prompt ()
-;;   (let ((header-bg "#81A1C1"))
-;;     (concat
-;;      (with-face (concat (eshell/pwd) " ") :background header-bg)
-;;      (with-face (format-time-string "(%Y-%m-%d %H:%M) " (current-time)) :background header-bg :foreground "#888")
-;;      (with-face user-login-name :background header-bg :foreground "#000")
-;;      (if (= (user-uid) 0)
-;;          (with-face " #" :foreground "red")
-;;        " $")
-;;      " ")))
-;; (setq eshell-prompt-function 'shk-eshell-prompt)
-;; (setq eshell-highlight-prompt nil)
+;; begin customization taken from https://gist.github.com/ekaschalk/f0ac91c406ad99e53bb97752683811a5
+(require 'dash)
+(require 's)
 
-;; set default tabbing to 2 spaces
-(setq-default indent-tabs-mode nil)
-(setq-default tab-width 2)
+(defmacro with-face (STR &rest PROPS)
+  "Return STR propertized with PROPS."
+  `(propertize ,STR 'face (list ,@PROPS)))
+
+(defmacro esh-section (NAME ICON FORM &rest PROPS)
+  "Build eshell section NAME with ICON prepended to evaled FORM with PROPS."
+  `(setq ,NAME
+         (lambda () (when ,FORM
+                 (-> ,ICON
+                    (concat esh-section-delim ,FORM)
+                    (with-face ,@PROPS))))))
+
+(defun esh-acc (acc x)
+  "Accumulator for evaluating and concatenating esh-sections."
+  (--if-let (funcall x)
+      (if (s-blank? acc)
+          it
+        (concat acc esh-sep it))
+    acc))
+
+(defun esh-prompt-func ()
+  "Build `eshell-prompt-function'"
+  (concat esh-header
+          (-reduce-from 'esh-acc "" eshell-funcs)
+          "\n"
+          eshell-prompt-string))
+
+(esh-section esh-dir
+             "\xf07b"  ;  (faicon folder)
+             (abbreviate-file-name (eshell/pwd))
+             '(:foreground "#88c0d0" :bold ultra-bold :underline t))
+
+(esh-section esh-git
+             "\xe907"  ;  (git icon)
+             (magit-get-current-branch)
+             '(:foreground "#A3BE8C"))
+
+;; Separator between esh-sections
+(setq esh-sep " ")  ; or " | "
+
+;; Separator between an esh-section icon and form
+(setq esh-section-delim " ")
+
+;; Eshell prompt header
+(setq esh-header "\n┌─")  ; or "\n┌─"
+
+;; Eshell prompt regexp and string. Unless you are varying the prompt by eg.
+;; your login, these can be the same.
+(setq eshell-prompt-regexp " ")   ; or "└─> "
+(setq eshell-prompt-string " ")   ; or "└─> "
+
+;; Choose which eshell-funcs to enable
+(setq eshell-funcs (list esh-dir esh-git))
+
+;; Enable the new eshell prompt
+(setq eshell-prompt-function 'esh-prompt-func)
+;; end test
 #+END_SRC
 * Elfeed
 #+BEGIN_SRC emacs-lisp
