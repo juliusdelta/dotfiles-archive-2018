@@ -20,6 +20,8 @@
 (prefer-coding-system 'utf-8)
 (when (display-graphic-p)
   (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING)))
+(setq visible-bell t)
+(setq ring-bell-function 'ignore)
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 2)
 #+END_SRC
@@ -304,6 +306,16 @@
     (beginning-of-line)
     (if (looking-at-p "^ +\/?> *$")
         (delete-char sgml-basic-offset))))
+#+END_SRC
+* Ruby
+#+BEGIN_SRC emacs-lisp
+(use-package rspec-mode
+  :ensure t)
+
+(evil-leader/set-key
+  "mtb" 'rspec-verify-single
+  "mtt" 'rspec-verify-all)
+
 #+END_SRC
 * Eshell
 #+BEGIN_SRC emacs-lisp
