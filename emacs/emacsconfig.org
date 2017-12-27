@@ -314,7 +314,8 @@
 
 (evil-leader/set-key
   "mtb" 'rspec-verify-single
-  "mtt" 'rspec-verify-all)
+  "mtt" 'rspec-verify-matching
+  "mta" 'rspec-verify-all)
 
 #+END_SRC
 * Eshell
