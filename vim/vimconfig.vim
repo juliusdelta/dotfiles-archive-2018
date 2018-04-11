@@ -15,3 +15,4 @@ call plug#end()
 
 colorscheme nord
 set guifont=SourceCodePro\ 13
+set shiftwidth=2

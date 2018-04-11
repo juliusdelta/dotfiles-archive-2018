@@ -1,8 +1,3 @@
-#+TITLE: Emacs Configuration
-#+STARTUP: Overview
-
-* General Setup/Tweaks
-#+BEGIN_SRC emacs-lisp
 (setq inhibit-startup-message t)
 (global-linum-mode t)
 (toggle-scroll-bar -1)
@@ -24,15 +19,10 @@
 (setq ring-bell-function 'ignore)
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 2)
-#+END_SRC
-** Disable Autosave - I find these files quite annoying and I habitually save the file
-#+BEGIN_SRC emacs-lisp
+
 (setq auto-save-default nil)
 (setq make-backup-files nil)
-#+END_SRC
 
-* Setup Use Package
-#+BEGIN_SRC emacs-lisp
 (require 'package)
 (setq package-enable-at-startup nil)
 (add-to-list 'package-archives
@@ -43,22 +33,16 @@
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
-#+END_SRC
-* Random Packages
-#+BEGIN_SRC emacs-lisp
+
 (use-package try
   :ensure t)
 
 (use-package which-key
   :ensure t
   :config (which-key-mode))
-#+END_SRC
-* Appearance
-#+BEGIN_SRC emacs-lisp
+
 (setq custom-safe-themes t)
-#+END_SRC
-** [[https://github.com/arcticicestudio/nord][Nord]], [[https://github.com/TheBB/spaceline][Spaceline]], [[https://github.com/rakanalh/emacs-dashboard][Emacs-Dashboard]]
-#+BEGIN_SRC emacs-lisp
+
 (use-package all-the-icons)
 (load-theme 'nord t)
 
@@ -83,9 +67,7 @@
       (agenda . 5)))
 (setq dashboard-banner-logo-title "Hey Babe")
 (setq dashboard-startup-banner "~/dotfiles/sun.png")
-#+END_SRC
-* Evil
-#+BEGIN_SRC emacs-lisp
+
 (use-package evil
   :ensure t)
 
@@ -97,9 +79,7 @@
 
 (evil-leader/set-leader "SPC")
 (setq evil-leader/in-all-states t)
-#+END_SRC
-** Evil Window keybindings
-#+BEGIN_SRC emacs-lisp
+
 (evil-leader/set-key
   "wh" 'evil-window-left
   "wj" 'evil-window-down
@@ -109,76 +89,68 @@
   "w/" 'evil-window-split
   "w|" 'evil-window-vsplit
   "d"  'dired-jump)
-#+END_SRC
-* Navigation and Projects
-#+BEGIN_SRC emacs-lisp
-  (use-package neotree
-    :ensure t)
-  (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
-  (evil-define-key 'normal neotree-mode-map (kbd "RET") 'neotree-enter)
-  (evil-define-key 'normal neotree-mode-map (kbd "c") 'neotree-create-node)
-  (evil-define-key 'normal neotree-mode-map (kbd "r") 'neotree-rename-node)
-  (evil-define-key 'normal neotree-mode-map (kbd "q") 'neotree-hide)
-  (evil-define-key 'normal neotree-mode-map (kbd "gr") 'neotree-refresh)
-  (evil-define-key 'normal neotree-mode-map (kbd "p") 'neotree-quick-look)
 
-  (use-package projectile
-    :ensure t)
-    
-  (use-package projectile-ripgrep
-    :ensure t)
+(use-package neotree
+  :ensure t)
+(setq neo-theme (if (display-graphic-p) 'icons 'arrow))
+(evil-define-key 'normal neotree-mode-map (kbd "RET") 'neotree-enter)
+(evil-define-key 'normal neotree-mode-map (kbd "c") 'neotree-create-node)
+(evil-define-key 'normal neotree-mode-map (kbd "r") 'neotree-rename-node)
+(evil-define-key 'normal neotree-mode-map (kbd "q") 'neotree-hide)
+(evil-define-key 'normal neotree-mode-map (kbd "gr") 'neotree-refresh)
+(evil-define-key 'normal neotree-mode-map (kbd "p") 'neotree-quick-look)
 
-  (use-package helm
-    :ensure t)
+(use-package projectile
+  :ensure t)
 
-  (use-package helm-projectile
-    :ensure t)
+(use-package projectile-ripgrep
+  :ensure t)
 
-  (setq helm-display-header-line nil)
-  (set-face-attribute 'helm-source-header nil :height 0.1)
-  (helm-autoresize-mode 1)
-  (setq helm-autoresize-max-height 25)
-  (setq helm-autoresize-min-height 25)
-  (setq helm-split-window-in-side-p t)
+(use-package helm
+  :ensure t)
 
-  (use-package expand-region
-    :ensure t)
-  (setq expand-region-contract-fast-key "z")
- #+END_SRC
-** Project Navigation Keybindings
- #+BEGIN_SRC emacs-lisp
-  (evil-leader/set-key
-    "ft" 'neotree-toggle
-    "pt" 'neotree-projectile-action
-    "bb"  'helm-buffers-list
-    "bd" 'kill-buffer-and-window
-    "bn" 'next-buffer
-    "bN" 'previous-buffer
-    "ff" 'helm-find-files
-    "pf" 'helm-projectile-find-file
-    "gs" 'magit-status
-    "sgp" 'projectile-ripgrep
-    "sp" 'projectile-switch-project
-    "'" 'multi-term-dedicated-toggle
-    "ct" 'xref-find-definitions
-    "nt" 'xref-find-definitions-other-window
-    "v" 'er/expand-region
-    "fed" (lambda () (interactive) (find-file "~/dotfiles/emacs/emacsconfig.org"))
-    "ot" (lambda () (interactive) (find-file "~/Dropbox/orgfiles/todo.org"))
-    "on" (lambda () (interactive) (find-file "~/Dropbox/orgfiles/notes.org")))
+(use-package helm-projectile
+  :ensure t)
 
-  (setq tags-table-list '("~/code/modernmsg/modernmsg/TAGS"))
-#+END_SRC
-** Magit
-#+BEGIN_SRC emacs-lisp
-  (use-package magit
-    :ensure t)
+(setq helm-display-header-line nil)
+(set-face-attribute 'helm-source-header nil :height 0.1)
+(helm-autoresize-mode 1)
+(setq helm-autoresize-max-height 25)
+(setq helm-autoresize-min-height 25)
+(setq helm-split-window-in-side-p t)
 
-  (use-package evil-magit
-    :ensure t)
-#+END_SRC
-* Org Mode
-#+BEGIN_SRC emacs-lisp
+(use-package expand-region
+  :ensure t)
+(setq expand-region-contract-fast-key "z")
+
+(evil-leader/set-key
+  "ft" 'neotree-toggle
+  "pt" 'neotree-projectile-action
+  "bb"  'helm-buffers-list
+  "bd" 'kill-buffer-and-window
+  "bn" 'next-buffer
+  "bN" 'previous-buffer
+  "ff" 'helm-find-files
+  "pf" 'helm-projectile-find-file
+  "gs" 'magit-status
+  "sgp" 'projectile-ripgrep
+  "sp" 'projectile-switch-project
+  "'" 'multi-term-dedicated-toggle
+  "ct" 'xref-find-definitions
+  "nt" 'xref-find-definitions-other-window
+  "v" 'er/expand-region
+  "fed" (lambda () (interactive) (find-file "~/dotfiles/emacs/emacsconfig.org"))
+  "ot" (lambda () (interactive) (find-file "~/Dropbox/orgfiles/todo.org"))
+  "on" (lambda () (interactive) (find-file "~/Dropbox/orgfiles/notes.org")))
+
+(setq tags-table-list '("~/code/modernmsg/modernmsg/TAGS"))
+
+(use-package magit
+  :ensure t)
+
+(use-package evil-magit
+  :ensure t)
+
 (use-package org-evil
   :ensure t)
 
@@ -235,9 +207,7 @@
 (evil-leader/set-key
   "oa" 'org-agenda
   "oc" 'org-capture)
-#+END_SRC
-* Dev Language Settings
-#+BEGIN_SRC emacs-lisp
+
 (evil-commentary-mode)
 
 (use-package company
@@ -315,9 +285,7 @@
     (beginning-of-line)
     (if (looking-at-p "^ +\/?> *$")
         (delete-char sgml-basic-offset))))
-#+END_SRC
-* Ruby
-#+BEGIN_SRC emacs-lisp
+
 (use-package rspec-mode
   :ensure t)
 (evil-leader/set-key
@@ -325,9 +293,6 @@
   "mtt" 'rspec-verify-matching
   "mta" 'rspec-verify-all)
 
-#+END_SRC
-* Eshell
-#+BEGIN_SRC emacs-lisp
 (use-package exec-path-from-shell
   :ensure t)
 
@@ -403,9 +368,7 @@
 ;; Enable the new eshell prompt
 (setq eshell-prompt-function 'esh-prompt-func)
 ;; end test
-#+END_SRC
-* Elfeed
-#+BEGIN_SRC emacs-lisp
+
 (use-package elfeed
   :ensure t)
   
@@ -417,18 +380,12 @@
         "https://this-week-in-rust.org/rss.xml"
         "http://endlessparentheses.com/atom.xml"))
 
-#+END_SRC
-* Custom Functions
-** Kills all other buffers except current one
-#+BEGIN_SRC emacs-lisp
 (defun kill-other-buffers ()
     (interactive)
     (mapc 'kill-buffer 
           (delq (current-buffer) 
                 (remove-if-not 'buffer-file-name (buffer-list)))))
-#+END_SRC
-* Emacs Custom Set Faces
-#+BEGIN_SRC emacs-lisp
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -437,4 +394,3 @@
  '(spaceline-all-the-icons-sunrise-face ((t (:inherit powerline-active2 :foreground "#88c0d0"))))
  '(spaceline-all-the-icons-sunset-face ((t (:inherit powerline-active2 :foreground "dark cyan"))))
  '(spaceline-highlight-face ((t (:foreground "#ECEFF4" :background "#5E81AC")))))
-#+END_SRC
