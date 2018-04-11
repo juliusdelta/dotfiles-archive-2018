@@ -3,6 +3,7 @@
 
 * General Setup/Tweaks
 #+BEGIN_SRC emacs-lisp
+(setq auth-sources '("~/.authinfo"))
 (setq inhibit-startup-message t)
 (global-linum-mode t)
 (toggle-scroll-bar -1)
@@ -176,6 +177,11 @@
 
   (use-package evil-magit
     :ensure t)
+    
+  (use-package magithub
+    :after magit
+    :ensure t
+    :config (magithub-feature-autoinject t))
 #+END_SRC
 * Org Mode
 #+BEGIN_SRC emacs-lisp
