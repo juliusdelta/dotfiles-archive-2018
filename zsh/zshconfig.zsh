@@ -20,7 +20,8 @@ POWERLEVEL9K_MODE='fontawesome'
 export ZSH_THEME="powerlevel9k/powerlevel9k"
 
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(user dir vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator vi_mode history time)
+#POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator vi_mode history time)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status)
 
 # Set lag time between changing vi modes to .1 seconds instead of default .4
 export KEYTIMEOUT=1
